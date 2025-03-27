@@ -1,0 +1,7 @@
+rootProject.name = 'amcamp'
+
+include(
+        "syncfit-eureka-service",
+        "syncfit-gateway-service",
+        "syncfit-config-service"
+)
