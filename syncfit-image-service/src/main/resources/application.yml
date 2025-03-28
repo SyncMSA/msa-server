@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: syncfit-image-service
+
+
+
+aws:
+  s3:
+    bucket: your-s3-bucket-name
+    region: us-east-1
+    access-key: your-access-key
+    secret-key: your-secret-key
