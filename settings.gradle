@@ -8,5 +8,6 @@ include(
         "syncfit-outterapi-service",
         "syncfit-wishlist-service",
         "syncfit-track-service",
-        "syncfit-image-service"
+        "syncfit-image-service",
+        "syncfit-auth-service"
 )
