@@ -1,12 +1,6 @@
-package com.syncfitimage.imageservice.api;
+package com.syncfitimage.imageservice.controller;
 
-import com.syncfitimage.imageservice.application.ImageService;
-import com.syncfitimage.imageservice.application.S3Service;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
