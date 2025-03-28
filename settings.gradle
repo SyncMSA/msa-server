@@ -6,5 +6,6 @@ include(
         "syncfit-config-service",
         "syncfit-common",
         "syncfit-wishlist-service",
-        "syncfit-track-service"
+        "syncfit-track-service",
+        "syncfit-image-service",
 )
