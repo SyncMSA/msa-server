@@ -1,0 +1,13 @@
+package com.optimatrouth.syncfitwishlistservice;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SyncfitWishlistServiceApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
