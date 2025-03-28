@@ -1,8 +1,8 @@
 package com.syncfitoutterapiservice.domain.spotify.application;
 
+import com.syncfitcommon.error.exception.CustomException;
+import com.syncfitcommon.error.exception.ErrorCode;
 import com.syncfitoutterapiservice.domain.spotify.dto.response.SpotifySearchResponse;
-import com.syncfitoutterapiservice.global.error.exception.CustomException;
-import com.syncfitoutterapiservice.global.error.exception.ErrorCode;
 //import com.syncfitoutterapiservice.global.util.MemberUtil;
 import com.syncfitoutterapiservice.infra.config.spotify.SpotifyConfig;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,6 @@ public class SpotifyService {
 
     public List<SpotifySearchResponse> searchByGenre(List<String> genres) {
         //memberUtil.getCurrentMember();
-
         Track[] tracks = getTrackInfoByGenre(genres);
 
         return Arrays.stream(tracks)

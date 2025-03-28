@@ -1,6 +1,7 @@
 package com.syncfitoutterapiservice.infra.config.chat;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -11,13 +12,17 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @RequiredArgsConstructor
 public class ChatConfig {
 
-    private final ChatProperties chatProperties;
+    @Value("${google.gemini-baseurl}")
+    private String baseUrl;
+
+    @Value("${google.api-key}")
+    private String googleApiKey;
 
     @Bean
     public RestClient chatRestClient() {
         return RestClient.builder()
-                .baseUrl(chatProperties.geminiBaseurl())
-                .defaultHeader("x-goog-api-key", chatProperties.apiKey())
+                .baseUrl(baseUrl)
+                .defaultHeader("x-goog-api-key", googleApiKey)
                 .defaultHeader("Content-Type", "application/json")
                 .defaultHeader("Accept", "application/json")
                 .build();

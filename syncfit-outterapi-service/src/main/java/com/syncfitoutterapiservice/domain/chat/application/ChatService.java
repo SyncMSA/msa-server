@@ -2,7 +2,6 @@ package com.syncfitoutterapiservice.domain.chat.application;
 
 import com.syncfitoutterapiservice.domain.chat.dto.request.ChatRequest;
 import com.syncfitoutterapiservice.domain.chat.dto.response.ChatResponse;
-import com.syncfitoutterapiservice.global.util.MemberUtil;
 import com.syncfitoutterapiservice.infra.config.chat.ChatInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ChatService {
 
-    private final MemberUtil memberUtil;
+    //private final MemberUtil memberUtil;
     private final ChatInterface chatInterface;
     private final PromptGenerator promptGenerator;
 
@@ -34,7 +33,7 @@ public class ChatService {
     }
 
     public String getRecommendGenre(String input) {
-        memberUtil.getCurrentMember();
+        //memberUtil.getCurrentMember();
         String message = promptGenerator.generatePrompt(input);
         return getCompletion(message);
     }

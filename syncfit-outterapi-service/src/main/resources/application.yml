@@ -1,6 +1,20 @@
 server:
-  port: 12345
+  port: 9999
 
 spring:
   application:
     name: syncfit-outterapi-service
+#  config:
+#    activate:
+#      on-profile: "api"
+
+google:
+  gemini-baseurl: ${GEMINI_BASEURL}
+  api-key: ${GEMINI_API_KEY}
+
+spotify:
+  client-id: ${SPOTIFY_CLIENT_ID}
+  client-secret: ${SPOTIFY_CLIENT_SECRET}
+
+youtube:
+  api-key: ${YOUTUBE_API_KEY}

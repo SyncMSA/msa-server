@@ -1,8 +1,7 @@
 package com.syncfitoutterapiservice.domain.youtube.application;
 
 import com.syncfitoutterapiservice.domain.youtube.dto.response.YouTubeVideoIdResponse;
-import com.syncfitoutterapiservice.global.util.MemberUtil;
-import com.syncfitoutterapiservice.infra.config.youtube.YoutubeProperties;
+//import com.syncfitoutterapiservice.global.util.MemberUtil;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
@@ -10,6 +9,7 @@ import com.google.api.services.youtube.YouTubeRequestInitializer;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,18 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class YouTubeService {
 
-    private final MemberUtil memberUtil;
-    private final YoutubeProperties youtubeProperties;
+    //private final MemberUtil memberUtil;
+    //private final YoutubeProperties youtubeProperties;
+
+    @Value("${youtube.api-key}")
+    private String apiKey;
 
     public YouTubeVideoIdResponse getYouTubeLink(String query) throws IOException {
-        memberUtil.getCurrentMember();
+        //memberUtil.getCurrentMember();
 
         YouTube youtube = new YouTube.Builder(
                 new NetHttpTransport(),
                 new JacksonFactory(),
                 request -> {
                 })
-                .setYouTubeRequestInitializer(new YouTubeRequestInitializer(youtubeProperties.apiKey()))
+                .setYouTubeRequestInitializer(new YouTubeRequestInitializer(apiKey))
                 .build();
 
         YouTube.Search.List search = youtube.search().list(Collections.singletonList("id"));

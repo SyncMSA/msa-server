@@ -4,5 +4,6 @@ include(
         "syncfit-eureka-service",
         "syncfit-gateway-service",
         "syncfit-config-service",
-        "syncfit-common"
+        "syncfit-common",
+        "syncfit-outterapi-service"
 )
