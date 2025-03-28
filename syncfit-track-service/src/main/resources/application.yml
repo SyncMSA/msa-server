@@ -1,3 +1,16 @@
+server:
+  port: 20000
 spring:
   application:
     name: syncfit-track-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${TRACK_SPRING_DATASOURCE_URL}
+    username: ${TRACK_SPRING_DATASOURCE_USERNAME}
+    password: ${TRACK_SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
