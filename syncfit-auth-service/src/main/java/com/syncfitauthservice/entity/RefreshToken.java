@@ -24,4 +24,9 @@ public class RefreshToken {
         this.token = token;
         this.ttl = ttl;
     }
+
+    public void updateRefreshToken(String newToken, long newTtl){
+        this.token = newToken;
+        this.ttl = newTtl;
+    }
 }
