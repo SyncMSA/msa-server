@@ -10,4 +10,6 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.33'
     // Spring Cloud Load Balancer
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+    // Eureka
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }
