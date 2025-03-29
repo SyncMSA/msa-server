@@ -4,6 +4,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
+import com.syncfitimage.imageservice.client.WishlistServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -33,8 +36,9 @@ public class ImageService {
     private String bucketRegion;
 
     private final AmazonS3 amazonS3;
+    private final WishlistServiceClient wishlistServiceClient;
 
-    public String uploadWishlistImage(MultipartFile file, String wishlistId) {
+    public String uploadImage(MultipartFile file) {
 
         if (file == null || file.isEmpty()) {
             return null;
@@ -49,31 +53,21 @@ public class ImageService {
             // AWS S3 버킷에 이미지 파일을 업로드
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
-            // 위시리스트 DB에 이미지 url을 저장
+            // 이미지 url
             String fileUrl = "https://" + bucket + ".s3." + bucketRegion + ".amazonaws.com/" + fileName;
-            /*
-            Optional<Wishlist> target = wishlistRepository.findById(Long.parseLong(wishlistId));
-            if (target.isPresent()) {
-                Wishlist wishlist = target.get();
-                wishlist.setImageUrl(fileUrl);
-                wishlistRepository.save(wishlist);
-            } else {
-                throw new CustomException(ErrorCode.WISHLIST_NOT_FOUND);
-            }
-             */
+            return fileUrl;
+
         } catch (IOException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+            throw new CustomException(ErrorCode.S3_UPLOAD_EXCEPTION);
         }
 
-        return fileName;
     }
 
     public byte[] downloadImage(String wishlistId) {
         try {
             // 위시리스트 DB에서 해당하는 이미지 url 가져오기
-
+            String imageUrl = wishlistServiceClient.getWishlistImageUrl(Long.parseLong(wishlistId));
             // AWS S3 버킷에서 이미지 파일을 다운로드
-            String imageUrl = "https://khstestbucket0328.s3.ap-northeast-2.amazonaws.com/d37a5196-6072-4a27-b601-13cafa810d97.png";
             URL url = new URL(imageUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -84,12 +78,12 @@ public class ImageService {
             }
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 다운로드에 실패했습니다.");
+            throw new CustomException(ErrorCode.S3_DOWNLOAD_ERROR);
         }
     }
 
     // 파일명을 난수화하기 위해 UUID 를 활용하여 난수를 돌린다.
-    public String createFileName(String fileName){
+    private String createFileName(String fileName){
         return UUID.randomUUID().toString().concat(getFileExtension(fileName));
     }
 
@@ -98,7 +92,8 @@ public class ImageService {
         try{
             return fileName.substring(fileName.lastIndexOf("."));
         } catch (StringIndexOutOfBoundsException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일" + fileName + ") 입니다.");
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일" + fileName + ") 입니다.");
+            throw new CustomException(ErrorCode.S3_UPLOAD_EXCEPTION);
         }
     }
 }

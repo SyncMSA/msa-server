@@ -23,9 +23,9 @@ public enum ErrorCode {
     TRACK_NOT_FOUND(HttpStatus.NOT_FOUND, "트랙을 찾을 수 없습니다."),
     TRACK_MEMBER_MISMATCH(HttpStatus.FORBIDDEN, "트랙을 생성한 유저와 로그인된 계정이 일치하지 않습니다."),
 
-    FIREBASE_UPLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "Firebase 파일 업로드 중 예외가 발생했습니다"),
-    FIREBASE_IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "이미지를 찾을 수 없습니다."),
-    FIREBASE_DOWNLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 다운로드 중 오류가 발생했습니다."),
+    S3_UPLOAD_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "S3 파일 업로드 중 예외가 발생했습니다"),
+    S3_IMAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "이미지를 찾을 수 없습니다."),
+    S3_DOWNLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 다운로드 중 오류가 발생했습니다."),
     ;
 
     private final HttpStatus status;
