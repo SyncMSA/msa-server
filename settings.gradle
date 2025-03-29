@@ -10,5 +10,6 @@ include(
         "syncfit-wishlist-service",
         "syncfit-track-service",
         "syncfit-image-service",
-        "syncfit-auth-service"
+        "syncfit-auth-service",
+        "syncfit-member-service"
 )
