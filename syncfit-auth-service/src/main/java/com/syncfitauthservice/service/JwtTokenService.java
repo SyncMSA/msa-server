@@ -1,11 +1,11 @@
 package com.syncfitauthservice.service;
 
-import com.syncfitauthservice.dto.AccessTokenDto;
-import com.syncfitauthservice.dto.RefreshTokenDto;
 import com.syncfitauthservice.entity.Member;
-import com.syncfitauthservice.entity.MemberRole;
 import com.syncfitauthservice.entity.RefreshToken;
 import com.syncfitauthservice.repository.RefreshTokenRepository;
+import com.syncfitcommoncore.dto.AccessTokenDto;
+import com.syncfitcommoncore.dto.RefreshTokenDto;
+import com.syncfitcommoncore.entity.MemberRole;
 import com.syncfitauthservice.util.JwtUtil;
 import com.syncfitcommonjpa.error.exception.CustomException;
 import com.syncfitcommonjpa.error.exception.ErrorCode;

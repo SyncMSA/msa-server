@@ -1,9 +1,9 @@
 package com.syncfitauthservice.util;
 
-import com.syncfitauthservice.dto.AccessTokenDto;
-import com.syncfitauthservice.dto.RefreshTokenDto;
-import com.syncfitauthservice.entity.MemberRole;
 import com.syncfitauthservice.properties.JwtProperties;
+import com.syncfitcommoncore.dto.AccessTokenDto;
+import com.syncfitcommoncore.dto.RefreshTokenDto;
+import com.syncfitcommoncore.entity.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -21,14 +21,6 @@ public class JwtUtil {
 
     private final JwtProperties jwtProperties;
 
-    public AccessTokenDto generateAccessTokenDto(Long memberId, MemberRole memberRole) {
-        Date issuedAt = new Date();
-        Date expiredAt =
-                new Date(issuedAt.getTime() + jwtProperties.accessTokenExpirationMilliTime());
-        String tokenValue = buildAccessToken(memberId, memberRole, issuedAt, expiredAt);
-        return new AccessTokenDto(memberId, memberRole, tokenValue);
-    }
-
     public String generateAccessToken(Long memberId, MemberRole memberRole) {
         Date issuedAt = new Date();
         Date expiredAt =
@@ -36,28 +28,12 @@ public class JwtUtil {
         return buildAccessToken(memberId, memberRole, issuedAt, expiredAt);
     }
 
-    public RefreshTokenDto generateRefreshTokenDto(Long memberId) {
+    public AccessTokenDto generateAccessTokenDto(Long memberId, MemberRole memberRole) {
         Date issuedAt = new Date();
         Date expiredAt =
-                new Date(issuedAt.getTime() + jwtProperties.refreshTokenExpirationMilliTime());
-        String tokenValue = buildRefreshToken(memberId, issuedAt, expiredAt);
-        return new RefreshTokenDto(
-                memberId, tokenValue, jwtProperties.refreshTokenExpirationTime());
-    }
-
-    public AccessTokenDto parseAccessToken(String accessTokenValue) throws ExpiredJwtException {
-        try {
-            Jws<Claims> claims = getClaims(accessTokenValue, getAccessTokenKey());
-
-            return AccessTokenDto.of(
-                    Long.parseLong(claims.getBody().getSubject()),
-                    MemberRole.valueOf(claims.getBody().get("role", String.class)),
-                    accessTokenValue);
-        } catch (ExpiredJwtException e) {
-            throw e;
-        } catch (Exception e) {
-            return null;
-        }
+                new Date(issuedAt.getTime() + jwtProperties.accessTokenExpirationMilliTime());
+        String tokenValue = buildAccessToken(memberId, memberRole, issuedAt, expiredAt);
+        return new AccessTokenDto(memberId, memberRole, tokenValue);
     }
 
     public RefreshTokenDto parseRefreshToken(String refreshTokenValue) throws ExpiredJwtException {
@@ -73,6 +49,15 @@ public class JwtUtil {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public RefreshTokenDto generateRefreshTokenDto(Long memberId) {
+        Date issuedAt = new Date();
+        Date expiredAt =
+                new Date(issuedAt.getTime() + jwtProperties.refreshTokenExpirationMilliTime());
+        String tokenValue = buildRefreshToken(memberId, issuedAt, expiredAt);
+        return new RefreshTokenDto(
+                memberId, tokenValue, jwtProperties.refreshTokenExpirationTime());
     }
 
     public String generateRefreshToken(Long memberId) {

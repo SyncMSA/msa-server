@@ -1,7 +1,5 @@
 package com.syncfitauthservice.service;
 
-import com.syncfitauthservice.dto.AccessTokenDto;
-import com.syncfitauthservice.dto.RefreshTokenDto;
 import com.syncfitauthservice.dto.request.AuthCodeRequest;
 import com.syncfitauthservice.dto.request.RefreshTokenRequest;
 import com.syncfitauthservice.dto.response.IdTokenResponse;
@@ -9,6 +7,8 @@ import com.syncfitauthservice.dto.response.SocialLoginResponse;
 import com.syncfitauthservice.entity.Member;
 import com.syncfitauthservice.entity.OauthInfo;
 import com.syncfitauthservice.repository.MemberRepository;
+import com.syncfitcommoncore.dto.AccessTokenDto;
+import com.syncfitcommoncore.dto.RefreshTokenDto;
 import com.syncfitcommonjpa.error.exception.CustomException;
 import com.syncfitcommonjpa.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;

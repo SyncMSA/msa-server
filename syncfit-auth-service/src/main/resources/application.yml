@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: syncfit-auth-service
+    name: auth-service
   jpa:
     hibernate:
       ddl-auto: create

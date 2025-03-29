@@ -2,7 +2,7 @@ server:
   port: 30000
 spring:
   application:
-    name: syncfit-track-service
+    name: track-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${TRACK_SPRING_DATASOURCE_URL}
