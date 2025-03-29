@@ -1,13 +1,13 @@
 package com.syncfitwishlistservice.application;
 
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import com.syncfitwishlistservice.client.ImageServiceClient;
 import com.syncfitwishlistservice.client.MemberServiceClient;
 import com.syncfitwishlistservice.dao.WishlistRepository;
 import com.syncfitwishlistservice.domain.Wishlist;
 import com.syncfitwishlistservice.dto.response.MemberInfoResponse;
 import com.syncfitwishlistservice.dto.response.WishlistInfoResponse;
-import com.syncfitcommon.error.exception.CustomException;
-import com.syncfitcommon.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

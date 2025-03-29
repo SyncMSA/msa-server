@@ -1,25 +1,13 @@
 package com.syncfittrackservice.application;
 
-//import com.amcamp.domain.member.domain.Member;
-//import com.amcamp.domain.track.dao.TrackRepository;
-//import com.amcamp.domain.track.domain.Track;
-//import com.amcamp.domain.track.dto.request.TrackCreateRequest;
-//import com.amcamp.domain.track.dto.response.TrackInfoResponse;
-//import com.amcamp.domain.wishlist.dao.WishlistRepository;
-//import com.amcamp.domain.wishlist.domain.Wishlist;
-//import com.amcamp.global.error.exception.CustomException;
-//import com.amcamp.global.error.exception.ErrorCode;
-//import com.amcamp.global.util.MemberUtil;
-
-import com.syncfitcommon.error.exception.CustomException;
-import com.syncfitcommon.error.exception.ErrorCode;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import com.syncfittrackservice.client.WishlistServiceClient;
 import com.syncfittrackservice.dao.TrackRepository;
 import com.syncfittrackservice.domain.Track;
 import com.syncfittrackservice.dto.request.TrackCreateRequest;
 import com.syncfittrackservice.dto.response.TrackInfoResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

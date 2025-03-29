@@ -1,7 +1,7 @@
 package com.syncfitauthservice.client;
 
 import com.syncfitauthservice.dto.response.IdTokenResponse;
-import com.syncfitcommon.config.FeignConfig;
+import com.syncfitcommonjpa.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,8 +1,8 @@
 package com.syncfitauthservice.service;
 
 import com.syncfitauthservice.properties.KakaoProperties;
-import com.syncfitcommon.error.exception.CustomException;
-import com.syncfitcommon.error.exception.ErrorCode;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;

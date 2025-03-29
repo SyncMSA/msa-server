@@ -1,10 +1,11 @@
 rootProject.name = 'amcamp'
 
 include(
+        "syncfit-common-core",
+        "syncfit-common-jpa",
         "syncfit-eureka-service",
         "syncfit-gateway-service",
         "syncfit-config-service",
-        "syncfit-common",
         "syncfit-outterapi-service",
         "syncfit-wishlist-service",
         "syncfit-track-service",

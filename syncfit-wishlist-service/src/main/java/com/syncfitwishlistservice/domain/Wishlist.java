@@ -1,7 +1,7 @@
 package com.syncfitwishlistservice.domain;
 
 
-import com.syncfitcommon.common.BaseTimeEntity;
+import com.syncfitcommonjpa.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

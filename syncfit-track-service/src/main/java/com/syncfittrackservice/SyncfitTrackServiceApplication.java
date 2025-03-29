@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
-@SpringBootApplication(scanBasePackages = {"com.syncfitcommon", "com.syncfittrackservice"})
+@SpringBootApplication(scanBasePackages = {"com.syncfitcommonjpa", "com.syncfittrackservice"})
 @EnableFeignClients(basePackages = {"com.syncfittrackservice.client"})
 public class SyncfitTrackServiceApplication {
 

@@ -3,7 +3,6 @@ package com.syncfitauthservice.controller;
 import com.syncfitauthservice.dto.request.AuthCodeRequest;
 import com.syncfitauthservice.dto.response.SocialLoginResponse;
 import com.syncfitauthservice.service.AuthService;
-import com.syncfitcommon.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
-    private final CookieUtil cookieUtil;
 
     @PostMapping("/social-login")
     public ResponseEntity<SocialLoginResponse> memberSocialLogin(@RequestBody AuthCodeRequest request) {
         SocialLoginResponse response = authService.socialLoginMember(request);
 
-        String refreshToken = response.refreshToken();
-        HttpHeaders headers = cookieUtil.generateRefreshTokenCookie(refreshToken);
+//        String refreshToken = response.refreshToken();
+//        HttpHeaders headers = cookieUtil.generateRefreshTokenCookie(refreshToken);
 
-        return ResponseEntity.ok().headers(headers).body(response);
+        return ResponseEntity.ok().body(response);
     }
 }
