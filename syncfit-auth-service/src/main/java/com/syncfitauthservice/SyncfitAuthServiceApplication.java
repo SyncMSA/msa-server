@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication(scanBasePackages = {"com.syncfitcommonjpa", "com.syncfitauthservice"})
+@SpringBootApplication(scanBasePackages = {"com.syncfitcommonjpa", "com.syncfitcommoncore", "com.syncfitauthservice"})
 @EnableDiscoveryClient
 @EnableFeignClients
 public class SyncfitAuthServiceApplication {

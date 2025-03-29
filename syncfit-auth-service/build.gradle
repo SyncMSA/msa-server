@@ -1,5 +1,6 @@
 dependencies {
     implementation project(':syncfit-common-jpa')
+    implementation project(':syncfit-common-core')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
