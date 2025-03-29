@@ -24,13 +24,13 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/image")
+    @PostMapping
     public ResponseEntity<String> uploadImage(@RequestPart("wishlistId") String wishlistId,
                                               @RequestPart("files") MultipartFile file) {
         return ResponseEntity.ok((imageService.uploadImage(file)));
     }
 
-    @GetMapping("/image")
+    @GetMapping
     public ResponseEntity<byte[]> downloadImage(@RequestParam("wishlistId") String wishlistId) {
         byte[] imageData = imageService.downloadImage(wishlistId);
 

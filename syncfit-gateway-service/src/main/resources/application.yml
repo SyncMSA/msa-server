@@ -38,7 +38,7 @@ spring:
           uri: lb://IMAGE-SERVICE
           predicates:
             - Path=/image-service/**
-            - Method=GET
+            - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/image-service/(?<segment>.*), /$\{segment}
