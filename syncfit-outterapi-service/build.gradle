@@ -1,5 +1,6 @@
 dependencies {
-	implementation project(':syncfit-common')
+	implementation project(':syncfit-common-core')
+	implementation project(':syncfit-common-jpa')
 
 	// Spotify
 	implementation 'se.michaelthelin.spotify:spotify-web-api-java:8.4.1'

@@ -1,7 +1,7 @@
 package com.syncfitoutterapiservice.infra.config.spotify;
 
-import com.syncfitcommon.error.exception.CustomException;
-import com.syncfitcommon.error.exception.ErrorCode;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Value;

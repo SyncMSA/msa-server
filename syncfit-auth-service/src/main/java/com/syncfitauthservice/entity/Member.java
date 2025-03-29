@@ -1,6 +1,6 @@
 package com.syncfitauthservice.entity;
 
-import com.syncfitcommon.common.BaseTimeEntity;
+import com.syncfitcommonjpa.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

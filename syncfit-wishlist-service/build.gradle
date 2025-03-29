@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':syncfit-common')
+    implementation project(':syncfit-common-jpa')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'

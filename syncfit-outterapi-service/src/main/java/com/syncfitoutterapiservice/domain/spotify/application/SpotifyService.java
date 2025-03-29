@@ -1,7 +1,7 @@
 package com.syncfitoutterapiservice.domain.spotify.application;
 
-import com.syncfitcommon.error.exception.CustomException;
-import com.syncfitcommon.error.exception.ErrorCode;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import com.syncfitoutterapiservice.domain.spotify.dto.response.SpotifySearchResponse;
 //import com.syncfitoutterapiservice.global.util.MemberUtil;
 import com.syncfitoutterapiservice.infra.config.spotify.SpotifyConfig;

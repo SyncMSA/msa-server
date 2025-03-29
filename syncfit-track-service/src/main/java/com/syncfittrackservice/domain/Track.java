@@ -1,15 +1,11 @@
 package com.syncfittrackservice.domain;
 
-//import com.amcamp.domain.common.model.BaseTimeEntity;
-//import com.amcamp.domain.wishlist.domain.Wishlist;
-import com.syncfitcommon.common.BaseTimeEntity;
+import com.syncfitcommonjpa.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import static jakarta.persistence.FetchType.LAZY;
 
 @Getter
 @Entity
