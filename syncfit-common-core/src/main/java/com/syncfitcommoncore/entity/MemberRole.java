@@ -1,4 +1,4 @@
-package com.syncfitauthservice.entity;
+package com.syncfitcommoncore.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
