@@ -4,17 +4,20 @@ server:
 spring:
   application:
     name: image-service
-  config:
-    import: optional:file:.env[.properties]
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-#  datasource:
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password:
+  #  datasource:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: ${IMAGE_SPRING_DATASOURCE_URL}
+  #    username: ${IMAGE_SPRING_DATASOURCE_USERNAME}
+  #    password: ${IMAGE_SPRING_DATASOURCE_PASSWORD}
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
 
 eureka:
   instance:
@@ -46,4 +49,3 @@ cloud:
 #    region: us-east-1
 #    access-key: your-access-key
 #    secret-key: your-secret-key
-
