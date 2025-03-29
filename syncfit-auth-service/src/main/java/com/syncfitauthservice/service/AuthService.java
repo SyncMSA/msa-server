@@ -1,11 +1,16 @@
 package com.syncfitauthservice.service;
 
+import com.syncfitauthservice.dto.AccessTokenDto;
+import com.syncfitauthservice.dto.RefreshTokenDto;
 import com.syncfitauthservice.dto.request.AuthCodeRequest;
+import com.syncfitauthservice.dto.request.RefreshTokenRequest;
 import com.syncfitauthservice.dto.response.IdTokenResponse;
 import com.syncfitauthservice.dto.response.SocialLoginResponse;
 import com.syncfitauthservice.entity.Member;
 import com.syncfitauthservice.entity.OauthInfo;
 import com.syncfitauthservice.repository.MemberRepository;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
@@ -34,6 +39,18 @@ public class AuthService {
         return getLoginResponse(member);
     }
 
+    public SocialLoginResponse refreshToken(RefreshTokenRequest request){
+        RefreshTokenDto oldRefreshTokenDto = jwtTokenService.validateRefreshToken(request.refreshToken());
+
+        if (oldRefreshTokenDto == null){
+            throw new CustomException(ErrorCode.EXPIRED_JWT_TOKEN);
+        }
+
+        RefreshTokenDto newRefreshTokenDto = jwtTokenService.refreshRefreshToken(oldRefreshTokenDto);
+        AccessTokenDto accessTokenDto = jwtTokenService.refreshAccessToken(getMember(newRefreshTokenDto));
+        return new SocialLoginResponse(accessTokenDto.accessTokenValue(), newRefreshTokenDto.refreshTokenValue());
+    }
+
     private SocialLoginResponse getLoginResponse(Member member) {
         String accessToken = jwtTokenService.createAccessToken(member.getId(), member.getRole());
         String refreshToken = jwtTokenService.createRefreshToken(member.getId());
@@ -54,5 +71,10 @@ public class AuthService {
     private OauthInfo extractOauthInfo(OidcUser oidcUser) {
         return OauthInfo.createOauthInfo(
                 oidcUser.getSubject(), oidcUser.getIssuer().toString());
+    }
+
+    private Member getMember(RefreshTokenDto refreshTokenDto){
+        return memberRepository.findById(refreshTokenDto.memberId())
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
     }
 }

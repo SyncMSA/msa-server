@@ -1,16 +1,16 @@
 package com.syncfitauthservice.service;
 
-import com.syncfitauthservice.util.JwtUtil;
 import com.syncfitauthservice.dto.AccessTokenDto;
 import com.syncfitauthservice.dto.RefreshTokenDto;
+import com.syncfitauthservice.entity.Member;
 import com.syncfitauthservice.entity.MemberRole;
 import com.syncfitauthservice.entity.RefreshToken;
 import com.syncfitauthservice.repository.RefreshTokenRepository;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.syncfitauthservice.util.JwtUtil;
+import com.syncfitcommonjpa.error.exception.CustomException;
+import com.syncfitcommonjpa.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,25 +19,8 @@ public class JwtTokenService {
     private final JwtUtil jwtUtil;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public AccessTokenDto createAccessTokenDto(Long memberId, MemberRole memberRole) {
-        return jwtUtil.generateAccessTokenDto(memberId, memberRole);
-    }
-
     public String createAccessToken(Long memberId, MemberRole memberRole) {
         return jwtUtil.generateAccessToken(memberId, memberRole);
-    }
-
-    public RefreshTokenDto createRefreshTokenDto(Long memberId) {
-        RefreshTokenDto refreshTokenDto = jwtUtil.generateRefreshTokenDto(memberId);
-        RefreshToken refreshToken =
-                RefreshToken.builder()
-                        .memberId(memberId)
-                        .token(refreshTokenDto.refreshTokenValue())
-                        .ttl(refreshTokenDto.ttl())
-                        .build();
-        refreshTokenRepository.save(refreshToken);
-
-        return refreshTokenDto;
     }
 
     public String createRefreshToken(Long memberId) {
@@ -53,52 +36,24 @@ public class JwtTokenService {
         return token;
     }
 
-    public AccessTokenDto retrieveAccessToken(String accessTokenValue) {
-        try {
-            return jwtUtil.parseAccessToken(accessTokenValue);
-        } catch (Exception e) {
-            return null;
-        }
+    public RefreshTokenDto refreshRefreshToken(RefreshTokenDto oldRefreshTokenDto){
+        RefreshToken refreshToken =
+                refreshTokenRepository
+                        .findById(oldRefreshTokenDto.memberId())
+                        .orElseThrow(() -> new CustomException(ErrorCode.MISSING_JWT_TOKEN));
+
+        RefreshTokenDto refreshTokenDto = jwtUtil.generateRefreshTokenDto(refreshToken.getMemberId());
+        refreshToken.updateRefreshToken(refreshTokenDto.refreshTokenValue(), refreshTokenDto.ttl());
+        refreshTokenRepository.save(refreshToken);
+
+        return refreshTokenDto;
     }
 
-    public RefreshTokenDto retrieveRefreshToken(String refreshTokenValue) {
-        RefreshTokenDto refreshTokenDto = parseRefreshToken(refreshTokenValue);
-
-        if (refreshTokenDto == null) {
-            return null;
-        }
-
-        Optional<RefreshToken> refreshToken = getRefreshToken(refreshTokenDto.memberId());
-
-        if (refreshToken.isPresent() &&
-                refreshTokenDto.refreshTokenValue().equals(refreshToken.get().getToken())) {
-            return refreshTokenDto;
-        }
-
-        return null;
+    public AccessTokenDto refreshAccessToken(Member member){
+        return jwtUtil.generateAccessTokenDto(member.getId(), member.getRole());
     }
 
-    public AccessTokenDto reissueAccessTokenIfExpired(String accessTokenValue) {
-        try {
-            jwtUtil.parseAccessToken(accessTokenValue);
-            return null;
-        } catch (ExpiredJwtException e) {
-            Long memberId = Long.parseLong(e.getClaims().getSubject());
-            MemberRole memberRole = MemberRole.valueOf(e.getClaims().get("role", String.class));
-
-            return createAccessTokenDto(memberId, memberRole);
-        }
-    }
-
-    private RefreshTokenDto parseRefreshToken(String refreshTokenValue) {
-        try {
-            return jwtUtil.parseRefreshToken(refreshTokenValue);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private Optional<RefreshToken> getRefreshToken(Long memberId) {
-        return refreshTokenRepository.findById(memberId);
+    public RefreshTokenDto validateRefreshToken(String refreshToken){
+        return jwtUtil.parseRefreshToken(refreshToken);
     }
 }
