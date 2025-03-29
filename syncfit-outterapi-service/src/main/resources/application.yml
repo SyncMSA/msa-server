@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: syncfit-outterapi-service
+    name: outterapi-service
 #  config:
 #    activate:
 #      on-profile: "api"

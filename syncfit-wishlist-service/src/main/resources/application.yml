@@ -2,7 +2,7 @@ server:
   port: 20000
 spring:
   application:
-    name: syncfit-wishlist-service
+    name: wishlist-service
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
