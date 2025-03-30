@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/tracks")
 public class TrackController {
 
     private final TrackService trackService;
