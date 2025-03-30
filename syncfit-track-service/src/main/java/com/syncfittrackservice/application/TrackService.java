@@ -2,6 +2,7 @@ package com.syncfittrackservice.application;
 
 import com.syncfitcommonjpa.error.exception.CustomException;
 import com.syncfitcommonjpa.error.exception.ErrorCode;
+import com.syncfitcommonjpa.util.MemberUtil;
 import com.syncfittrackservice.client.WishlistServiceClient;
 import com.syncfittrackservice.dao.TrackRepository;
 import com.syncfittrackservice.domain.Track;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 @Transactional
@@ -20,17 +22,16 @@ public class TrackService {
 
     private final WishlistServiceClient wishlistServiceClient;
 
-//    private final MemberUtil memberUtil;
-//    private final WishlistRepository wishlistRepository;
+    private final MemberUtil memberUtil;
+    //    private final WishlistRepository wishlistRepository;
     private final TrackRepository trackRepository;
 
     public void createTrack(TrackCreateRequest request) {
-        // 멤버 아이디를 가져오게 변환하기
-//        final Member currentMember = memberUtil.getCurrentMember();
+        // 멤버 아이디를 반환
+        final Long currentMemberId = memberUtil.getMemberId();
         final Long wishlistId = request.wishlistId();
 
-
-//        validateWishlistMemberMismatch(wishlistId, currentMemberId);
+        validateWishlistMemberMismatch(wishlistId, currentMemberId);
 
         trackRepository.save(
                 Track.createTrack(
@@ -38,19 +39,19 @@ public class TrackService {
     }
 
     public void deleteTrack(Long trackId) {
-//        final Member currentMember = memberUtil.getCurrentMember();
+        final Long currentMemberId = memberUtil.getMemberId();
         final Track track = findTrackById(trackId);
 
-//        validateTrackMemberMismatch(track, currentMember);
+        validateTrackMemberMismatch(track, currentMemberId);
 
         trackRepository.deleteById(trackId);
     }
 
     @Transactional(readOnly = true)
     public List<TrackInfoResponse> findAllTrack(Long wishlistId) {
-//        final Member currentMember = memberUtil.getCurrentMember();
+        final Long currentMemberId = memberUtil.getMemberId();
 
-//        validateWishlistMemberMismatch(wishlistId, currentMember);
+        validateWishlistMemberMismatch(wishlistId, currentMemberId);
 
         return trackRepository.findAllByWishlistId(wishlistId)
                 .stream()
@@ -69,9 +70,9 @@ public class TrackService {
 //        if (!wishlist.getMember().getId().equals(member.getId())) {
 //            throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
 //        }
-          if(wishlistServiceClient.validateOwnership(wishlistId, memberId) == false){
-              throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
-          }
+        if(wishlistServiceClient.validateOwnership(wishlistId, memberId) == false){
+            throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
+        }
     }
 
     private Track findTrackById(Long trackId) {
