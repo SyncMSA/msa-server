@@ -43,6 +43,15 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/image-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+        - id: track-service
+          uri: lb://TRACK-SERVICE
+          predicates:
+            - Path=/track-service/**
+            - Method=GET,POST,DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/track-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 
 #        - id: user-service
 #          uri: lb://USER-SERVICE

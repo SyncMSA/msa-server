@@ -23,7 +23,6 @@ public class TrackService {
     private final WishlistServiceClient wishlistServiceClient;
 
     private final MemberUtil memberUtil;
-    //    private final WishlistRepository wishlistRepository;
     private final TrackRepository trackRepository;
 
     public void createTrack(TrackCreateRequest request) {
@@ -59,18 +58,9 @@ public class TrackService {
                 .toList();
     }
 
-    /* 이 메서드는 사용할 일 없을듯?
-    private Wishlist findWishlistById(Long wishlistId) {
-        return wishlistRepository.findById(wishlistId)
-                .orElseThrow(() -> new CustomException(ErrorCode.WISHLIST_NOT_FOUND));
-    }
-    */
 
     private void validateWishlistMemberMismatch(Long wishlistId, Long memberId) {
-//        if (!wishlist.getMember().getId().equals(member.getId())) {
-//            throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
-//        }
-        if(wishlistServiceClient.validateOwnership(wishlistId, memberId) == false){
+        if(!wishlistServiceClient.validateOwnership(wishlistId, memberId)){
             throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
         }
     }
@@ -81,10 +71,7 @@ public class TrackService {
     }
 
     private void validateTrackMemberMismatch(Track track, Long memberId) {
-//        if (!track.getWishlist().getMember().getId().equals(memberId)) {
-//            throw new CustomException(ErrorCode.TRACK_MEMBER_MISMATCH);
-//        }
-        if(wishlistServiceClient.validateOwnership(track.getWishlistId(),memberId) == false){
+        if(!wishlistServiceClient.validateOwnership(track.getWishlistId(), memberId)){
             throw new CustomException(ErrorCode.TRACK_MEMBER_MISMATCH);
         }
     }
