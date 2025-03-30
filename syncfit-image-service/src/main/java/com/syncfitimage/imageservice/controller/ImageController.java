@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/image")
 public class ImageController {
 
     Environment env;
@@ -28,9 +27,8 @@ public class ImageController {
     @PostMapping
     public ResponseEntity<String> uploadImage(@RequestPart("wishlistId") String wishlistId,
                                               @RequestPart("files") MultipartFile file) {
-        return ResponseEntity.ok((imageService.uploadWishlistImage(file, wishlistId)));
+        return ResponseEntity.ok((imageService.uploadImage(file)));
     }
-
 
     @GetMapping
     public ResponseEntity<byte[]> downloadImage(@RequestParam("wishlistId") String wishlistId) {
