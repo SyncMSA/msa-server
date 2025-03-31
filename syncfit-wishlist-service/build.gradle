@@ -7,8 +7,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    // Spring Cloud
-    implementation platform("org.springframework.cloud:spring-cloud-dependencies:2024.0.0")
+    // Spring Cloud Config
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
 
     // Spring Cloud Load Balancer
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
@@ -17,4 +17,11 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     // Eureka
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 }
