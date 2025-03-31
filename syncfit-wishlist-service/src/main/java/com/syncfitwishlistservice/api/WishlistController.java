@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wishlist")
 @RequiredArgsConstructor
 public class WishlistController {
 

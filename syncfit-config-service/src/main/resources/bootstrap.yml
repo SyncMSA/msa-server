@@ -1,14 +1,17 @@
 spring:
   application:
     name: config-service # 애플리케이션 이름 설정
+
+  profiles:
+    active: git
   cloud:
     config:
       server:
         git:
-          uri: https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/SyncMSA/msa-server.git
+          uri: https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/SyncMSA/syncfit-config.git
           default-label: main
-          searchPaths: '{application}'
-          username: ${GITHUB_USERNAME}
-          password: ${GITHUB_PASSWORD}
+#          username: ${GITHUB_USERNAME}
+#          password: ${GITHUB_PASSWORD}
   #          cloneOnStart: true
           skipSslValidation: true
+        bootstrap: true
