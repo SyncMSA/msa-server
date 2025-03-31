@@ -6,6 +6,7 @@ import com.syncfitcommonjpa.util.MemberUtil;
 import com.syncfitwishlistservice.client.ImageServiceClient;
 import com.syncfitwishlistservice.dao.WishlistRepository;
 import com.syncfitwishlistservice.domain.Wishlist;
+import com.syncfitwishlistservice.dto.response.WishlistImageUrlResponse;
 import com.syncfitwishlistservice.dto.response.WishlistInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,10 +91,10 @@ public class WishlistService {
         return true;
     }
 
-    public String getWishlistImageUrl(Long wishlistId) {
+    public WishlistImageUrlResponse getWishlistImageUrl(Long wishlistId) {
         Wishlist wishlist = findWishlistById(wishlistId);
 
-        return wishlist.getImageUrl();
+        return new WishlistImageUrlResponse(wishlist.getImageUrl());
     }
 }
 
