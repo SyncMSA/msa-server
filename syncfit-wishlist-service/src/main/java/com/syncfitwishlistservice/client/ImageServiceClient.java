@@ -11,6 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 @FeignClient(name="image-service", configuration = FeignErrorDecoder.class)
 public interface ImageServiceClient {
 
-    @PostMapping("/image")
+    @PostMapping
     String uploadImage(@RequestPart("files") MultipartFile file);
 }
