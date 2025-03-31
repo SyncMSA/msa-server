@@ -61,6 +61,15 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/track-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+        - id: outerapi-service
+          uri: lb://OUTERAPI-SERVICE
+          predicates:
+            - Path=/outerapi-service/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/outerapi-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 
 #        - id: user-service
 #          uri: lb://USER-SERVICE
