@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name="wishlist-service", configuration = FeignErrorDecoder.class)
 public interface WishlistServiceClient {
-    @GetMapping("/{wishlistId}/wishlist-image-url")
+    @GetMapping("/wishlist-image-url/{wishlistId}")
     String getWishlistImageUrl(@PathVariable Long wishlistId);
 }
