@@ -26,10 +26,9 @@ public class WishlistService {
     public void createWishlist(String title, MultipartFile file) {
         Long memberId = memberUtil.getMemberId();
 
-//        String imageUrl = imageServiceClient.uploadImage(file);
+        String imageUrl = imageServiceClient.uploadImage(file);
 
-        Wishlist wishlist = wishlistRepository.save(Wishlist.createWishlist(memberId, title, "test_image_url"));
-//        imageServiceClient.storeImageInfo(imageUrl, wishlist.getId().toString());
+        Wishlist wishlist = wishlistRepository.save(Wishlist.createWishlist(memberId, title, imageUrl));
 
         new WishlistInfoResponse(wishlist.getId(), wishlist.getTitle(), wishlist.getImageUrl());
     }
@@ -65,7 +64,6 @@ public class WishlistService {
         if (file != null && !file.isEmpty()) {
             String imageUrl = imageServiceClient.uploadImage(file);
             wishlist.updateImageUrl(imageUrl);
-            imageServiceClient.storeImageInfo(imageUrl, wishlist.getId().toString());
         }
     }
 
@@ -90,6 +88,12 @@ public class WishlistService {
         }
 
         return true;
+    }
+
+    public String getWishlistImageUrl(Long wishlistId) {
+        Wishlist wishlist = findWishlistById(wishlistId);
+
+        return wishlist.getImageUrl();
     }
 }
 

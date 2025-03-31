@@ -31,6 +31,11 @@ public class WishlistController {
         return wishlistService.validateOwnership(wishlistId, memberId);
     }
 
+    @GetMapping("/wishlist-image-url/{wishlistId}")
+    public String getWishlistImageUrl(@PathVariable Long wishlistId){
+        return wishlistService.getWishlistImageUrl(wishlistId);
+    }
+
     @PatchMapping("/{wishlistId}")
     public ResponseEntity<Void> editWishlist(@PathVariable Long wishlistId,
                                                    @RequestPart(value = "title", required = false) String title,
