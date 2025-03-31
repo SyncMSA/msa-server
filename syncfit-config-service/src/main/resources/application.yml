@@ -4,11 +4,11 @@ server:
 spring:
   application:
     name: config-service  # Eureka에 등록될 서비스 이름
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
 
 eureka:
   instance:
