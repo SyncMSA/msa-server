@@ -22,6 +22,7 @@ public class TrackController {
 
     @PostMapping
     public ResponseEntity<Void> trackCreate(@RequestBody TrackCreateRequest request) {
+        System.out.println(request);
         trackService.createTrack(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
