@@ -18,4 +18,5 @@ dependencies {
 
     // Rabbit MQ
 //    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+
 }
