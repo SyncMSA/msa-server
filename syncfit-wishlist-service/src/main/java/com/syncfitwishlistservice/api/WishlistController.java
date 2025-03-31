@@ -1,6 +1,7 @@
 package com.syncfitwishlistservice.api;
 
 import com.syncfitwishlistservice.application.WishlistService;
+import com.syncfitwishlistservice.dto.response.WishlistImageUrlResponse;
 import com.syncfitwishlistservice.dto.response.WishlistInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class WishlistController {
     @GetMapping("/ownership/{wishlistId}")
     public Boolean findWishlistById(@PathVariable Long wishlistId, @RequestParam Long memberId){
         return wishlistService.validateOwnership(wishlistId, memberId);
+    }
+
+    @GetMapping("/wishlist-image-url/{wishlistId}")
+    public WishlistImageUrlResponse getWishlistImageUrl(@PathVariable Long wishlistId){
+        return wishlistService.getWishlistImageUrl(wishlistId);
     }
 
     @PatchMapping("/{wishlistId}")

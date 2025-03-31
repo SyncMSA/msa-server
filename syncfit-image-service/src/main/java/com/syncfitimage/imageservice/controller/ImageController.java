@@ -25,8 +25,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadImage(@RequestPart("wishlistId") String wishlistId,
-                                              @RequestPart("files") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@RequestPart("files") MultipartFile file) {
         return ResponseEntity.ok((imageService.uploadImage(file)));
     }
 

@@ -6,6 +6,7 @@ import com.syncfitcommonjpa.util.MemberUtil;
 import com.syncfitwishlistservice.client.ImageServiceClient;
 import com.syncfitwishlistservice.dao.WishlistRepository;
 import com.syncfitwishlistservice.domain.Wishlist;
+import com.syncfitwishlistservice.dto.response.WishlistImageUrlResponse;
 import com.syncfitwishlistservice.dto.response.WishlistInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,9 @@ public class WishlistService {
     public void createWishlist(String title, MultipartFile file) {
         Long memberId = memberUtil.getMemberId();
 
-//        String imageUrl = imageServiceClient.uploadImage(file);
+        String imageUrl = imageServiceClient.uploadImage(file);
 
-        Wishlist wishlist = wishlistRepository.save(Wishlist.createWishlist(memberId, title, "test_image_url"));
-//        imageServiceClient.storeImageInfo(imageUrl, wishlist.getId().toString());
+        Wishlist wishlist = wishlistRepository.save(Wishlist.createWishlist(memberId, title, imageUrl));
 
         new WishlistInfoResponse(wishlist.getId(), wishlist.getTitle(), wishlist.getImageUrl());
     }
@@ -65,7 +65,6 @@ public class WishlistService {
         if (file != null && !file.isEmpty()) {
             String imageUrl = imageServiceClient.uploadImage(file);
             wishlist.updateImageUrl(imageUrl);
-            imageServiceClient.storeImageInfo(imageUrl, wishlist.getId().toString());
         }
     }
 
@@ -90,6 +89,12 @@ public class WishlistService {
         }
 
         return true;
+    }
+
+    public WishlistImageUrlResponse getWishlistImageUrl(Long wishlistId) {
+        Wishlist wishlist = findWishlistById(wishlistId);
+
+        return new WishlistImageUrlResponse(wishlist.getImageUrl());
     }
 }
 

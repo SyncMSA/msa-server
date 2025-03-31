@@ -5,8 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name="syncfit-wishlist-service", configuration = FeignErrorDecoder.class)
+@FeignClient(name="wishlist-service", configuration = FeignErrorDecoder.class)
 public interface WishlistServiceClient {
-    @GetMapping("/syncfit-wishlist-service/wishlist/{wishlistId}/wishlist-image-url")
+    @GetMapping("/wishlist-image-url/{wishlistId}")
     String getWishlistImageUrl(@PathVariable Long wishlistId);
 }
