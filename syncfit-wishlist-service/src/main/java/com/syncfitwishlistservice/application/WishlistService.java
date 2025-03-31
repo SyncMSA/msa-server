@@ -2,11 +2,10 @@ package com.syncfitwishlistservice.application;
 
 import com.syncfitcommonjpa.error.exception.CustomException;
 import com.syncfitcommonjpa.error.exception.ErrorCode;
+import com.syncfitcommonjpa.util.MemberUtil;
 import com.syncfitwishlistservice.client.ImageServiceClient;
-import com.syncfitwishlistservice.client.MemberServiceClient;
 import com.syncfitwishlistservice.dao.WishlistRepository;
 import com.syncfitwishlistservice.domain.Wishlist;
-import com.syncfitwishlistservice.dto.response.MemberInfoResponse;
 import com.syncfitwishlistservice.dto.response.WishlistInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,43 +20,43 @@ import java.util.List;
 public class WishlistService {
 
     private final WishlistRepository wishlistRepository;
-    private final MemberServiceClient memberServiceClient;
     private final ImageServiceClient imageServiceClient;
+    private final MemberUtil memberUtil;
 
     public void createWishlist(String title, MultipartFile file) {
-        MemberInfoResponse member = memberServiceClient.getMember();
+        Long memberId = memberUtil.getMemberId();
 
-        String imageUrl = imageServiceClient.uploadImage(file);
+//        String imageUrl = imageServiceClient.uploadImage(file);
 
-        Wishlist wishlist = wishlistRepository.save(Wishlist.createWishlist(member.getMemberId(), title, imageUrl));
-        imageServiceClient.storeImageInfo(imageUrl, wishlist.getId().toString());
+        Wishlist wishlist = wishlistRepository.save(Wishlist.createWishlist(memberId, title, "test_image_url"));
+//        imageServiceClient.storeImageInfo(imageUrl, wishlist.getId().toString());
 
         new WishlistInfoResponse(wishlist.getId(), wishlist.getTitle(), wishlist.getImageUrl());
     }
 
     public void deleteWishlist(Long wishlistId) {
-        MemberInfoResponse currentMember = memberServiceClient.getMember();
+        Long memberId = memberUtil.getMemberId();
         Wishlist wishlist = findWishlistById(wishlistId);
 
-        validateOwnership(wishlist, currentMember.getMemberId());
+        validateOwnership(wishlist, memberId);
 
         wishlistRepository.delete(wishlist);
     }
 
     public List<WishlistInfoResponse> findAllWishlist() {
-        MemberInfoResponse currentMember = memberServiceClient.getMember();
+        Long memberId = memberUtil.getMemberId();
 
-        return wishlistRepository.findByMemberId(currentMember.getMemberId())
+        return wishlistRepository.findByMemberId(memberId)
                 .stream()
                 .map(WishlistInfoResponse::from)
                 .toList();
     }
 
     public void editWishlist(Long wishlistId, String title, MultipartFile file) {
-        MemberInfoResponse currentMember = memberServiceClient.getMember();
+        Long memberId = memberUtil.getMemberId();
         Wishlist wishlist = findWishlistById(wishlistId);
 
-        validateOwnership(wishlist, currentMember.getMemberId());
+        validateOwnership(wishlist, memberId);
 
         if (title != null && !title.isBlank()) {
             wishlist.updateTitle(title);
