@@ -8,7 +8,10 @@ import com.syncfittrackservice.dao.TrackRepository;
 import com.syncfittrackservice.domain.Track;
 import com.syncfittrackservice.dto.request.TrackCreateRequest;
 import com.syncfittrackservice.dto.response.TrackInfoResponse;
+import com.syncfittrackservice.dto.response.ValidateResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,7 +63,12 @@ public class TrackService {
 
 
     private void validateWishlistMemberMismatch(Long wishlistId, Long memberId) {
-        if(!wishlistServiceClient.validateOwnership(wishlistId, memberId)){
+//        if(!wishlistServiceClient.findWishlistById(wishlistId, memberId)){
+//            throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
+//        }
+        ResponseEntity<ValidateResponse> response = wishlistServiceClient.findWishlistById(wishlistId, memberId);
+        Boolean valid = response.getStatusCode().is2xxSuccessful();
+        if (response.getStatusCode() != HttpStatus.OK && Boolean.FALSE.equals(valid)) {
             throw new CustomException(ErrorCode.WISHLIST_MEMBER_MISMATCH);
         }
     }
@@ -71,7 +79,12 @@ public class TrackService {
     }
 
     private void validateTrackMemberMismatch(Track track, Long memberId) {
-        if(!wishlistServiceClient.validateOwnership(track.getWishlistId(), memberId)){
+//        if(!wishlistServiceClient.findWishlistById(track.getWishlistId(), memberId)){
+//            throw new CustomException(ErrorCode.TRACK_MEMBER_MISMATCH);
+//        }
+        ResponseEntity<ValidateResponse> response = wishlistServiceClient.findWishlistById(track.getWishlistId(), memberId);
+        Boolean valid = response.getStatusCode().is2xxSuccessful();
+        if (response.getStatusCode() != HttpStatus.OK && Boolean.FALSE.equals(valid)) {
             throw new CustomException(ErrorCode.TRACK_MEMBER_MISMATCH);
         }
     }
