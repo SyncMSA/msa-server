@@ -13,3 +13,12 @@ management:
     web:
       exposure:
         include: health, busrefresh, refresh, metrics  # 관리 엔드포인트 설정
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: B3
+  zipkin:
+    tracing:
+      endpoint: http://zipkin-container:9411/api/v2/spans

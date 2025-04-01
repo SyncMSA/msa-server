@@ -27,4 +27,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Micrometer
+    implementation 'io.micrometer:micrometer-observation'
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    // Zipkin
+    implementation 'io.zipkin.brave:brave-instrumentation-spring-web'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
 }

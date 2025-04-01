@@ -25,4 +25,11 @@ dependencies {
 
     implementation 'io.github.openfeign:feign-jackson:12.4' // 최신 버전 사용
 
+    // Micrometer
+    implementation 'io.micrometer:micrometer-observation'
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    // Zipkin
+    implementation 'io.zipkin.brave:brave-instrumentation-spring-web'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+
 }
