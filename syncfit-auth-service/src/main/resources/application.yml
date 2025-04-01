@@ -1,42 +1,8 @@
-server:
-  port: 10000
-
 spring:
   application:
     name: auth-service
-  jpa:
-    hibernate:
-      ddl-auto: create
-  datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: ${MEMBER_SPRING_DATASOURCE_URL}
-      username: ${MEMBER_SPRING_DATASOURCE_USERNAME}
-      password: ${MEMBER_SPRING_DATASOURCE_PASSWORD}
-  data:
-    redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-      password:
-
-oauth:
-  kakao:
-    client-id: ${KAKAO_CLIENT_ID}
-    client-secret: ${KAKAO_CLIENT_SECRET}
-    redirect-uri: ${KAKAO_REDIRECT_URI}
-    grant-type: ${KAKAO_CLIENT_GRANT_TYPE}
-
-jwt:
-  access-token-secret: ${JWT_ACCESS_TOKEN_SECRET}
-  refresh-token-secret: ${JWT_REFRESH_TOKEN_SECRET}
-  access-token-expiration-time: ${JWT_ACCESS_TOKEN_EXPIRATION_TIME:7200}
-  refresh-token-expiration-time: ${JWT_REFRESH_TOKEN_EXPIRATION_TIME:172800}
-  issuer: ${JWT_ISSUER}
-
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+  cloud:
+    config:
+      name: auth-service
+  config:
+    import: configserver:http://127.0.0.1:8888

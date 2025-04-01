@@ -21,21 +21,16 @@ public class FeignErrorDecoder implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
         switch(response.status()) {
             case 400:
-                break;
+                return new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 요청입니다.");
             case 404:
                 if (methodKey.contains("uploadImage")) {
-                    return new ResponseStatusException(HttpStatus.valueOf(response.status()),
-                           env.getProperty("image-service.exception.file-upload-failed"));
-                } else if (methodKey.contains("storeImageInfo")) {
-                    return new ResponseStatusException(HttpStatus.valueOf(response.status()),
-                           env.getProperty("image-service.exception.file-info-save-failed"));
-                } else if (methodKey.contains("getMember")) {
-                    return new ResponseStatusException(HttpStatus.valueOf(response.status()),
-                           env.getProperty("member-service.exception.member-not-found"));
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            env.getProperty("image-service.exception.file-upload-failed", "파일 업로드 실패"));
                 }
                 break;
             default:
-                return new Exception(response.reason());
+                String reason = response.reason() != null ? response.reason() : "Unknown error";
+                return new ResponseStatusException(HttpStatus.valueOf(response.status()), reason);
         }
 
         return null;

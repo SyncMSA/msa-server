@@ -6,7 +6,7 @@ include(
         "syncfit-eureka-service",
         "syncfit-gateway-service",
         "syncfit-config-service",
-        "syncfit-outerapi-service",
+        "syncfit-externalApi-service",
         "syncfit-wishlist-service",
         "syncfit-track-service",
         "syncfit-image-service",
