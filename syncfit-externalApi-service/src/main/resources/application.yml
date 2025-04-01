@@ -1,8 +1,8 @@
 spring:
   application:
-    name: eureka-service
+    name: externalApi-service
   cloud:
     config:
-      name: eureka-service
+      name: externalApi-service
   config:
     import: configserver:http://127.0.0.1:8888

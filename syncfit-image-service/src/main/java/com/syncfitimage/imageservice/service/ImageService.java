@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.syncfitcommonjpa.error.exception.CustomException;
 import com.syncfitcommonjpa.error.exception.ErrorCode;
 import com.syncfitimage.imageservice.client.WishlistServiceClient;
+import com.syncfitimage.imageservice.dto.WishlistImageUrlResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class ImageService {
     private final AmazonS3 amazonS3;
     private final WishlistServiceClient wishlistServiceClient;
 
-    public String uploadImage(MultipartFile file) {
+    public WishlistImageUrlResponse uploadImage(MultipartFile file) {
 
         if (file == null || file.isEmpty()) {
             return null;
@@ -55,7 +56,7 @@ public class ImageService {
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             // 이미지 url
             String fileUrl = "https://" + bucket + ".s3." + bucketRegion + ".amazonaws.com/" + fileName;
-            return fileUrl;
+            return new WishlistImageUrlResponse(fileUrl);
 
         } catch (IOException e){
             throw new CustomException(ErrorCode.S3_UPLOAD_EXCEPTION);

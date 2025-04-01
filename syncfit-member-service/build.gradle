@@ -13,4 +13,11 @@ dependencies {
 
     // MySQL
     implementation 'mysql:mysql-connector-java:8.0.33'
+
+    // Spring Cloud Config
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 }

@@ -1,5 +1,6 @@
 package com.syncfitimage.imageservice.controller;
 
+import com.syncfitimage.imageservice.dto.WishlistImageUrlResponse;
 import com.syncfitimage.imageservice.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadImage(@RequestPart("files") MultipartFile file) {
+    public ResponseEntity<WishlistImageUrlResponse> uploadImage(@RequestPart("files") MultipartFile file) {
         return ResponseEntity.ok((imageService.uploadImage(file)));
     }
 

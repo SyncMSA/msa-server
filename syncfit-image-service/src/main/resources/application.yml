@@ -1,51 +1,8 @@
-server:
-  port: 10001
-
 spring:
   application:
     name: image-service
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-  #  datasource:
-  #    driver-class-name: com.mysql.cj.jdbc.Driver
-  #    url: ${IMAGE_SPRING_DATASOURCE_URL}
-  #    username: ${IMAGE_SPRING_DATASOURCE_USERNAME}
-  #    password: ${IMAGE_SPRING_DATASOURCE_PASSWORD}
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  #    prefer-ip-address: true
-  #    ip-address: ${server.address}
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
-    fetch-registry: true
-    register-with-eureka: true
-
-# AWS S3
-cloud:
-  aws:
-    credentials:
-      access-key: ${AWS_ACCESS_KEY} # AWS 계정 액세스 키
-      secret-key: ${AWS_SECRET_KEY} # AWS 계정 시크릿 키
-    region:
-      static: ${AWS_REGION}  # 버킷의 리전
-    s3:
-      bucket: ${AWS_S3_BUCKET_NAME}   # 버킷 이름
-    stack:
-      auto: false
-
-#aws:
-#  s3:
-#    bucket: your-s3-bucket-name
-#    region: us-east-1
-#    access-key: your-access-key
-#    secret-key: your-secret-key
+  cloud:
+    config:
+      name: image-service
+  config:
+    import: configserver:http://127.0.0.1:8888
